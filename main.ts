@@ -8,12 +8,13 @@ function thingulate(pString: string): void {
 }
 function toMarkDownTable(pCartridgeAsJSON: any): string {
   let lRetval =
-    "#|name|#|name|#|name|#|name|#|name|#|name|#|name|#|name|\n" +
-    "---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n";
+    "|# | name       |#  | name       |#  | name       |#  | name       |\n" +
+    "|--|------------|---|------------|---|------------|---|------------|\n";
 
-  for (let n = 0; n < 4; n++) {
+  for (let n = 0; n < 8; n++) {
+    lRetval += "|";
     for (let lVoice of pCartridgeAsJSON) {
-      if (lVoice.number % 4 === n) {
+      if (lVoice.number % 8 === n) {
         lRetval += `${(lVoice.number + 1).toString(10)} | ${lVoice.name} |`;
       }
     }
@@ -28,7 +29,7 @@ try {
   thingulate("## [Meadows_01_keys](Meadows_01_keys)\n");
   thingulate(toMarkDownTable(cartridgeToJSON(MEADOWS_01)));
   thingulate("\n");
-  thingulate("## [Meadows_02_pads](Meadows_01_keys)\n");
+  thingulate("## [Meadows_02_pads](Meadows_02_pads)\n");
   thingulate(toMarkDownTable(cartridgeToJSON(MEADOWS_02)));
   thingulate("\n");
   thingulate(
