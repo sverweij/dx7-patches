@@ -1,37 +1,41 @@
 import { cartridgeToJSON } from "./read-syx.ts";
 
-const MEADOWS_01 = Deno.readFileSync("./Meadows_01_keys.syx");
-const MEADOWS_02 = Deno.readFileSync("./Meadows_02_pads.syx");
+const NO_ROWS = 8;
 
 function thingulate(pString: string): void {
   Deno.writeAllSync(Deno.stdout, new TextEncoder().encode(pString));
 }
 function toMarkDownTable(pCartridgeAsJSON: any): string {
-  let lRetval =
+  let lReturnValue =
     "|# | name       |#  | name       |#  | name       |#  | name       |\n" +
     "|--|------------|---|------------|---|------------|---|------------|\n";
 
-  for (let n = 0; n < 8; n++) {
-    lRetval += "|";
+  for (let lRow = 0; lRow < NO_ROWS; lRow++) {
+    lReturnValue += "|";
     for (let lVoice of pCartridgeAsJSON) {
-      if (lVoice.number % 8 === n) {
-        lRetval += `${(lVoice.number + 1).toString(10)} | ${lVoice.name} |`;
+      if (lVoice.number % NO_ROWS === lRow) {
+        lReturnValue += `${(lVoice.number + 1).toString(10)} | ${
+          lVoice.name
+        } |`;
       }
     }
-    lRetval += "\n";
+    lReturnValue += "\n";
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 try {
   thingulate("# DX7 cartridge dumps\n\n");
-  thingulate("sysx dumps of my DX7 cartridges\n");
-  thingulate("## [Meadows_01_keys](Meadows_01_keys)\n");
-  thingulate(toMarkDownTable(cartridgeToJSON(MEADOWS_01)));
-  thingulate("\n");
-  thingulate("## [Meadows_02_pads](Meadows_02_pads)\n");
-  thingulate(toMarkDownTable(cartridgeToJSON(MEADOWS_02)));
-  thingulate("\n");
+  thingulate("sysx dumps of my DX7 cartridges\n\n");
+  for (let { name } of Deno.readDirSync(".")) {
+    if (name.endsWith(".syx")) {
+      let lSysexDump = Deno.readFileSync(name);
+      thingulate(`## [${name.split(".").shift()}](${name})\n`);
+      thingulate(toMarkDownTable(cartridgeToJSON(lSysexDump)));
+      thingulate("\n");
+    }
+  }
+
   thingulate(
     "> generate this README with `deno run --allow-read main.ts > README.md`"
   );
