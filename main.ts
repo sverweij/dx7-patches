@@ -1,23 +1,24 @@
 import { cartridgeToJSON } from "./read-syx.ts";
 
-const NO_ROWS = 8;
-const NO_VOICES = 32;
-
 function thingulate(pString: string): void {
   Deno.writeAllSync(Deno.stdout, new TextEncoder().encode(pString));
 }
-function toMarkDownTable(pCartridgeAsJSON: any): string {
+function toMarkDownTable(
+  pCartridgeAsJSON: any,
+  pNoRows: number = 8,
+  pNoVoices: number = 32,
+): string {
   let lReturnValue =
-    `${"|#  | name       ".repeat(Math.ceil(NO_VOICES / NO_ROWS))}|\n` +
-    `${"|---|------------".repeat(Math.ceil(NO_VOICES / NO_ROWS))}|\n`;
+    `${"|#  | name       ".repeat(Math.ceil(pNoVoices / pNoRows))}|\n` +
+    `${"|---|------------".repeat(Math.ceil(pNoVoices / pNoRows))}|\n`;
 
-  for (let lRow = 0; lRow < NO_ROWS; lRow++) {
+  for (let lRow = 0; lRow < pNoRows; lRow++) {
     lReturnValue += "|";
     for (let lVoice of pCartridgeAsJSON) {
-      if (lVoice.number % NO_ROWS === lRow) {
-        lReturnValue += `${(lVoice.number + 1).toString(10)} | ${
-          lVoice.name
-        } |`;
+      if (lVoice.number % pNoRows === lRow) {
+        lReturnValue += `${
+          (lVoice.number + 1).toString(10)
+        } | ${lVoice.name} |`;
       }
     }
     lReturnValue += "\n";
@@ -33,23 +34,25 @@ function getFileNames(pDirName: string): string[] {
   return lReturnValue;
 }
 
-try {
-  thingulate("# DX7 cartridge dumps\n\n");
-  thingulate("sysx dumps of my DX7 cartridges\n\n");
-  getFileNames(".")
-    .filter((pName) => pName.endsWith(".syx"))
-    .sort()
-    .map(
-      (pName) =>
-        `\n## [${pName.split(".").shift()}](${pName})\n\n` +
-        toMarkDownTable(cartridgeToJSON(Deno.readFileSync(pName))) +
-        "\n"
-    )
-    .forEach(thingulate);
+if (import.meta.main) {
+  try {
+    thingulate("# DX7 cartridge dumps\n\n");
+    thingulate("sysx dumps of my DX7 cartridges\n\n");
+    getFileNames(".")
+      .filter((pName) => pName.endsWith(".syx"))
+      .sort()
+      .map(
+        (pName) =>
+          `\n## [${pName.split(".").shift()}](${pName})\n\n` +
+          toMarkDownTable(cartridgeToJSON(Deno.readFileSync(pName))) +
+          "\n",
+      )
+      .forEach(thingulate);
 
-  thingulate(
-    "> generate this README with `deno run --allow-read main.ts > README.md`\n"
-  );
-} catch (pError) {
-  console.error(pError);
+    thingulate(
+      "> generate this README with `deno run --allow-read main.ts > README.md`\n",
+    );
+  } catch (pError) {
+    console.error(pError);
+  }
 }
