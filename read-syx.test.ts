@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals } from "./deps.ts";
 import {
   isValidCartridge,
   getDataChunks,
@@ -15,41 +15,41 @@ const CHECKSUM: number = 0x00; // we should really calculate that ...
 const END_SYSEX: number = 0xf7;
 
 const VALID_EMPTY_CARTRIDGE = new Uint8Array(
-  START_SYSEX.concat(EMPTY_DATA).concat([CHECKSUM]).concat([END_SYSEX]),
+  START_SYSEX.concat(EMPTY_DATA).concat([CHECKSUM]).concat([END_SYSEX])
 );
 const CARTRIDGE_WITH_WRONG_END = new Uint8Array(
-  START_SYSEX.concat(EMPTY_DATA).concat([CHECKSUM]).concat([0x00]),
+  START_SYSEX.concat(EMPTY_DATA).concat([CHECKSUM]).concat([0x00])
 );
 const CARTRIDGE_WITH_ONE_VOICE_DATA = new Uint8Array(
-  START_SYSEX_ONE_VOICE.concat(EMPTY_DATA).concat([CHECKSUM]).concat([0x00]),
+  START_SYSEX_ONE_VOICE.concat(EMPTY_DATA).concat([CHECKSUM]).concat([0x00])
 );
 
 Deno.test(
   "isValidCartridge: No bytes => not a valid cartridge",
   function (): void {
     assertEquals(isValidCartridge(new Uint8Array([])), false);
-  },
+  }
 );
 
 Deno.test(
   "isValidCartridge: An initialized cartridge is valid",
   function (): void {
     assertEquals(isValidCartridge(VALID_EMPTY_CARTRIDGE), true);
-  },
+  }
 );
 
 Deno.test(
   "isValidCartridge: A cartridge with an incorrect end marker is not valid",
   function (): void {
     assertEquals(isValidCartridge(CARTRIDGE_WITH_WRONG_END), false);
-  },
+  }
 );
 
 Deno.test(
   "isValidCartridge: A cartridge with a one voice header is not valid",
   function (): void {
     assertEquals(isValidCartridge(CARTRIDGE_WITH_ONE_VOICE_DATA), false);
-  },
+  }
 );
 
 Deno.test("getDataChunks: whoopla temp", function (): void {

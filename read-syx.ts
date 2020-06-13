@@ -1,4 +1,4 @@
-import { hasPrefix } from "https://deno.land/std/bytes/mod.ts";
+import { hasPrefix } from "./deps.ts";
 
 const SYSEX_BULK_DATA_32_VOICES_HEADER: Uint8Array = new Uint8Array([
   0xf0,
@@ -25,13 +25,13 @@ export function isValidCartridge(pSysexMessage: Uint8Array): boolean {
 export function getDataChunks(pSysexMessage: Uint8Array): Uint8Array[] {
   const lPayload = pSysexMessage.subarray(
     SYSEX_BULK_DATA_32_VOICES_HEADER.length,
-    SYSEX_BULK_DATA_32_VOICES_HEADER.length + NO_VOICES * VOICE_LENGTH,
+    SYSEX_BULK_DATA_32_VOICES_HEADER.length + NO_VOICES * VOICE_LENGTH
   );
   const lRetval = [];
 
   for (let i = 0; i < NO_VOICES; i++) {
     lRetval.push(
-      lPayload.subarray(i * VOICE_LENGTH, i * VOICE_LENGTH + VOICE_LENGTH),
+      lPayload.subarray(i * VOICE_LENGTH, i * VOICE_LENGTH + VOICE_LENGTH)
     );
   }
   return lRetval;

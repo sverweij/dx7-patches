@@ -1,0 +1,18 @@
+{
+  "https://deno.land/std/path/separator.ts": "9dd15d46ff84a16e13554f56af7fee1f85f8d0f379efbbe60ac066a60561f036",
+  "https://deno.land/std/_util/assert.ts": "e1f76e77c5ccb5a8e0dbbbe6cce3a56d2556c8cb5a9a8802fc9565af72462149",
+  "https://deno.land/std/testing/diff.ts": "77338e2b479626c096278d7b4a95f750753ee39558f314db6b794e8d8a98d515",
+  "https://deno.land/std/bytes/mod.ts": "5ad1325fc232f19b59fefbded30013b4bcd39fee4cf1eee73d6a6915ae46bdcd",
+  "https://deno.land/std/io/util.ts": "1a87070007cbfc279020d747952822901faea36126dab4bf1c7e004140a07b37",
+  "https://deno.land/std/fmt/colors.ts": "06444b6ebc3842a4b2340d804bfa81fc5452a03513cbb81bd7f6bf8f4b8f3ac4",
+  "https://deno.land/std/path/mod.ts": "6de8885c2534757097818e302becd1cefcbc4c28ac022cc279e612ee04e8cfd1",
+  "https://deno.land/std/testing/asserts.ts": "a9f22a8e078b943f6b71a66de7f8afd3428cb6fa6fd7171e79b713b47b374ae4",
+  "https://deno.land/std/path/_globrex.ts": "696996deed47bd98fcab9de0034233380ead443a5cd702631151c6a71e3d21a2",
+  "https://deno.land/std/path/posix.ts": "514c39f5f7ca45bee2ace2a2e83da74dde5ff08fba837c71f86f459abe846fd7",
+  "https://deno.land/std/path/_constants.ts": "e11f32a36644e04dce243f3c1f30c02cc5d149827f48a755628176f0707cfc70",
+  "https://deno.land/std/path/win32.ts": "91dfd12ddaabec7fa4a8052e16ec56a260722a505e3bb8dfc35041651af38322",
+  "https://deno.land/std/path/common.ts": "e4ec66a7416d56f60331b66e27a8a4f08c7b1cf48e350271cb69754a01cf5c04",
+  "https://deno.land/std/path/_interface.ts": "5876f91d35fd42624893a4aaddaee352144e1f46e719f1dde6511bab7c3c1029",
+  "https://deno.land/std/path/_util.ts": "feacfbe104df3baf2a08ca80263d6a9cf63f9c32e7c9cbe54602ec12864a72e9",
+  "https://deno.land/std/path/glob.ts": "fbce75b7714db355dca9abd0df107177dd3b7b76110e7ab8b783020f1e6ef895"
+}
