@@ -38,6 +38,7 @@ export function getDataChunks(pSysexMessage: Uint8Array): Uint8Array[] {
 }
 
 export function cartridgeToJSON(pSysexMessage: Uint8Array): any[] {
+// see https://github.com/asb2m10/dexed/blob/master/Documentation/sysex-format.txt
   if (isValidCartridge(pSysexMessage)) {
     return getDataChunks(pSysexMessage).map((pVoiceBytes, pNumber) => ({
       // LFO: {
